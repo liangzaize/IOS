@@ -18,7 +18,7 @@ class SetPerson: UIViewController, ModeViewControlDelegate{
     @IBOutlet weak var touxiang: UILabel!
     
     @IBAction func sign(_ sender: Any) {
-        //
+        //nj 
     }
     @IBOutlet weak var level: UILabel!
     
