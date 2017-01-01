@@ -21,6 +21,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     var get1: Array<String>?
     var Save: String!
     var arrayNames: Array<String> = []
+    var arrayNames_1: Array<String> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,13 +54,16 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         let send: Dictionary = ["Type": get!, "Fa": Save] as [String : Any]
         
         //发送型号+厂商，就可以定位具体的产品
-        Alamofire.request("https://40.74.84.240:8080/product", method: .post, parameters: send, encoding: JSONEncoding.default)
+        Alamofire.request("https://localhost:8443/hardware", method: .post, parameters: send, encoding: JSONEncoding.default)
             .validate()
             .responseJSON { response in
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
-                    self.arrayNames =  json["Port"].arrayValue.map({$0.stringValue})
+                    self.arrayNames = json["Port"].arrayValue.map({$0.stringValue})
+                    self.arrayNames_1 = json["Type"].arrayValue.map({$0.stringValue})
+                    print(self.arrayNames)
+                    print(self.arrayNames_1)
                     self.performSegue(withIdentifier: "into", sender: nil)
                     tableView.deselectRow(at: indexPath, animated: true)
                 case .failure(let error):
@@ -72,17 +76,20 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         if segue.identifier == "into"{
             let dest: WhatViewController = segue.destination as! WhatViewController
             dest.get = Save
-            let ss = [
-            [self.arrayNames[0],self.arrayNames[1],self.arrayNames[2],self.arrayNames[3],self.arrayNames[4]],
-            [self.arrayNames[5],self.arrayNames[6]],
-            [self.arrayNames[7],self.arrayNames[8],self.arrayNames[9],self.arrayNames[10]],
-            [self.arrayNames[11]],
-            [self.arrayNames[12],self.arrayNames[13],self.arrayNames[14]],
-            [self.arrayNames[15],self.arrayNames[16]],
-            [self.arrayNames[17],self.arrayNames[18],self.arrayNames[19],self.arrayNames[20],self.arrayNames[21],self.arrayNames[22]],
-            [self.arrayNames[23],self.arrayNames[24],self.arrayNames[25],self.arrayNames[26]]
-            ]
-            dest.get1 = ss
+            
+            var ss = [[String]]()
+            ss.append([])
+//            let ss = [
+//            [self.arrayNames[0],self.arrayNames[1],self.arrayNames[2],self.arrayNames[3],self.arrayNames[4]],
+//            [self.arrayNames[5],self.arrayNames[6]],
+//            [self.arrayNames[7],self.arrayNames[8],self.arrayNames[9],self.arrayNames[10]],
+//            [self.arrayNames[11]],
+//            [self.arrayNames[12],self.arrayNames[13],self.arrayNames[14]],
+//            [self.arrayNames[15],self.arrayNames[16]],
+//            [self.arrayNames[17],self.arrayNames[18],self.arrayNames[19],self.arrayNames[20],self.arrayNames[21],self.arrayNames[22]],
+//            [self.arrayNames[23],self.arrayNames[24],self.arrayNames[25],self.arrayNames[26]]
+//            ]
+            //dest.get1 = ss
         }
     }
 }

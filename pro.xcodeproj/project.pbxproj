@@ -11,7 +11,6 @@
 		BD13C5C2D51244F8C26B24C7 /* Pods_pro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C01B068669CABBD86120725 /* Pods_pro.framework */; };
 		EBF0EA8BC13528649D799E5A /* Pods_proUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338DE98160F63DEDD69864FC /* Pods_proUITests.framework */; };
 		F339BDE71DE5C84D00289235 /* Zhu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339BDE61DE5C84D00289235 /* Zhu.swift */; };
-		F34919AF1DDC276D002AA33E /* tomcat.p12 in Resources */ = {isa = PBXBuildFile; fileRef = F34919AE1DDC276D002AA33E /* tomcat.p12 */; };
 		F36467761DC1C00F00BD71E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36467751DC1C00F00BD71E3 /* AppDelegate.swift */; };
 		F36467781DC1C00F00BD71E3 /* DeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36467771DC1C00F00BD71E3 /* DeviceController.swift */; };
 		F364677A1DC1C01000BD71E3 /* TalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36467791DC1C01000BD71E3 /* TalkViewController.swift */; };
@@ -20,6 +19,7 @@
 		F36467821DC1C01000BD71E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F36467801DC1C01000BD71E3 /* LaunchScreen.storyboard */; };
 		F364678D1DC1C01000BD71E3 /* proTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F364678C1DC1C01000BD71E3 /* proTests.swift */; };
 		F36467981DC1C01000BD71E3 /* proUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36467971DC1C01000BD71E3 /* proUITests.swift */; };
+		F37678851E18970F00C2CAC8 /* mykey.p12 in Resources */ = {isa = PBXBuildFile; fileRef = F37678841E18970F00C2CAC8 /* mykey.p12 */; };
 		F37836171DE335DD00D451B5 /* NewsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37836161DE335DD00D451B5 /* NewsDetail.swift */; };
 		F37836191DE3445B00D451B5 /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37836181DE3445B00D451B5 /* Cover.swift */; };
 		F378361B1DE346A000D451B5 /* SetPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = F378361A1DE346A000D451B5 /* SetPerson.swift */; };
@@ -56,7 +56,6 @@
 		86242B3E5C7CC5E56D257513 /* Pods-proUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-proUITests/Pods-proUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EF34A4B13487593511E5B997 /* Pods-proUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-proUITests/Pods-proUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F339BDE61DE5C84D00289235 /* Zhu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zhu.swift; sourceTree = "<group>"; };
-		F34919AE1DDC276D002AA33E /* tomcat.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tomcat.p12; sourceTree = "<group>"; };
 		F36467721DC1C00F00BD71E3 /* pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F36467751DC1C00F00BD71E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F36467771DC1C00F00BD71E3 /* DeviceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceController.swift; sourceTree = "<group>"; };
@@ -71,6 +70,7 @@
 		F36467931DC1C01000BD71E3 /* proUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F36467971DC1C01000BD71E3 /* proUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = proUITests.swift; sourceTree = "<group>"; };
 		F36467991DC1C01000BD71E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F37678841E18970F00C2CAC8 /* mykey.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mykey.p12; sourceTree = "<group>"; };
 		F37836161DE335DD00D451B5 /* NewsDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetail.swift; sourceTree = "<group>"; };
 		F37836181DE3445B00D451B5 /* Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
 		F378361A1DE346A000D451B5 /* SetPerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPerson.swift; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 		F36467691DC1C00F00BD71E3 = {
 			isa = PBXGroup;
 			children = (
-				F34919AE1DDC276D002AA33E /* tomcat.p12 */,
+				F37678841E18970F00C2CAC8 /* mykey.p12 */,
 				F36467741DC1C00F00BD71E3 /* pro */,
 				F364678B1DC1C01000BD71E3 /* proTests */,
 				F36467961DC1C01000BD71E3 /* proUITests */,
@@ -304,7 +304,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "胡康泽";
 				TargetAttributes = {
 					F36467711DC1C00F00BD71E3 = {
@@ -351,7 +351,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F34919AF1DDC276D002AA33E /* tomcat.p12 in Resources */,
+				F37678851E18970F00C2CAC8 /* mykey.p12 in Resources */,
 				F36467821DC1C01000BD71E3 /* LaunchScreen.storyboard in Resources */,
 				F364677F1DC1C01000BD71E3 /* Assets.xcassets in Resources */,
 				F364677D1DC1C01000BD71E3 /* Main.storyboard in Resources */,

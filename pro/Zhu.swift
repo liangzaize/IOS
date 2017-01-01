@@ -37,10 +37,10 @@ class Zhu: UIViewController, UITabBarDelegate{
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.tag {
         case 1:
-            sendtheala("https://40.74.84.240:8080/id/up")
+            sendtheala("https://localhost:8443/Hello")
             break
         case 2:
-            sendtheala("https://40.74.84.240:8080/id/down")
+            sendtheala("https://localhost:8443/Hello")
             break
         case 3:
             self.dismiss(animated: true, completion: nil)

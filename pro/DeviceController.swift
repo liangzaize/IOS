@@ -76,18 +76,7 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
     var Finally = false
     var Save: String!
     var arrayNames: Array<String> = []
-    var Dict = [0: "GTX-1080",
-                1: "b",
-                2: "c",
-                3: "d",
-                4: "e",
-                5: "f",
-                6: "g",
-                7: "h",
-                8: "i",
-                9: "j",
-                10: "k"]
-    let selfSignedHosts = ["40.74.84.240"]
+    let selfSignedHosts = ["localhost"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,7 +126,7 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
         var identityAndTrust:IdentityAndTrust!
         var securityError:OSStatus = errSecSuccess
         
-        let path: String = Bundle.main.path(forResource: "tomcat", ofType: "p12")!
+        let path: String = Bundle.main.path(forResource: "mykey", ofType: "p12")!
         let PKCS12Data = NSData(contentsOfFile:path)!
         let key : NSString = kSecImportExportPassphrase as NSString
         let options : NSDictionary = [key : "hukangze"] //客户端证书密码
@@ -169,10 +158,6 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
         return identityAndTrust;
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         cancel(locat)
@@ -181,36 +166,65 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
             cell = tableView.dequeueReusableCell(withIdentifier: "left", for: indexPath)
             let label = cell.viewWithTag(1) as! UILabel
             if locat == 0 {
-                label.text = Dict[locat]
+                label.text = xinghao(locat)[indexPath.row]
             } else {
-                label.text = Dict[locat - 1]
+                label.text = xinghao(locat - 1)[indexPath.row]
             }
             return cell
         case midTable:
             cell = tableView.dequeueReusableCell(withIdentifier: "mid", for: indexPath)
             let label = cell.viewWithTag(1) as! UILabel
             if locat == 0 {
-                label.text = Dict[locat + 1]
+                label.text = xinghao(locat + 1)[indexPath.row]
             } else if locat == 10 {
-                label.text = Dict[locat - 1]
+                label.text = xinghao(locat - 1)[indexPath.row]
             }
             else {
-                label.text = Dict[locat]
+                label.text = xinghao(locat)[indexPath.row]
             }
             return cell
         case rightTable:
             cell = tableView.dequeueReusableCell(withIdentifier: "right", for: indexPath)
             let label = cell.viewWithTag(1) as! UILabel
             if locat == 10 {
-                label.text = Dict[locat]
+                label.text = xinghao(locat)[indexPath.row]
             } else {
-            label.text = Dict[locat + 1]
+            label.text = xinghao(locat + 1)[indexPath.row]
             }
             return cell
         default:
             break
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch tableView {
+        case leftTable:
+            if(locat == 0){
+            return xinghao(locat).count
+            } else {
+                return xinghao(locat - 1).count
+            }
+        case midTable:
+            if locat == 0 {
+                return xinghao(locat + 1).count
+            } else if locat == 10 {
+                return xinghao(locat - 1).count
+            }
+            else {
+                return xinghao(locat).count
+            }
+        case rightTable:
+            if locat == 10 {
+                return xinghao(locat).count
+            } else {
+                return xinghao(locat + 1).count
+            }
+        default:
+            break
+        }
+        return 0;
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -219,13 +233,13 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
         Save = label.text!
         let send: Dictionary = ["Type": Save] as [String : Any]
         //发送硬件的具体型号
-        Alamofire.request("https://40.74.84.240:8080", method: .post, parameters: send, encoding: JSONEncoding.default)
+        Alamofire.request("https://localhost:8443/a", method: .post, parameters: send, encoding: JSONEncoding.default)
             .validate()
             .responseJSON { response in
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
-                    self.arrayNames =  json["Port"].arrayValue.map({$0.stringValue})
+                    self.arrayNames =  json["Type"].arrayValue.map({$0.stringValue})
                     self.performSegue(withIdentifier: "gotodetail", sender: nil)
                     tableView.deselectRow(at: indexPath, animated: true)
                 case .failure(let error):
@@ -239,6 +253,35 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
             let dest: DetailController = segue.destination as! DetailController
             dest.get = Save
             dest.get1 = self.arrayNames
+        }
+    }
+    
+    func xinghao(_ kan: Int) -> Array<String> {
+        switch kan {
+        case 0:
+            return ["GTX-1080","GTX-1070","GTX-1060","GTX-1050Ti","GTX-1050","GTX-980Ti","GTX-980","GTX-970","GTX-960","GTX-950","GTX-Titan","GTX-750Ti","R9-FURY-X","RX-480","RX-470","RX-470D","RX-460","R9-390X","R9-390","R9-380X","R9-380","R9-370X","R9-370","R7-360","R7-350"]
+        case 1:
+            return ["I7-6700k","I7-6600","I7-4790"]
+        case 2:
+            return ["技嘉","华硕","微星"]
+        case 3:
+            return ["8G","4G"]
+        case 4:
+            return ["闪迪","西部数据","东芝"]
+        case 5:
+            return ["超频三东海","九州风神大霜塔","ID-COOLING Frostflow霜流120","Tt 零度水冷装备","ANTEC MERCURY水星240"]
+        case 6:
+            return ["游戏悍将刀锋-变形金刚3至尊版","航嘉MVP2","鑫谷雷诺塔T3","爱国者风行","金河田21+预见V10"]
+        case 7:
+            return ["双飞燕X7狼印一阳指F70游戏鼠标","雷柏V310激光游戏鼠标","海盗船M65激光游戏鼠标","血手幽灵R8血魔骷髅无线五宝游戏鼠标"]
+        case 8:
+            return ["双飞燕KB-8键盘","雷柏V510网吧版防水背光游戏机械键盘","海盗船K70银轴机械键盘"]
+        case 9:
+            return ["惠威M200MKII","漫步者S1000","飞利浦SPA1312","耳神ER-5500"]
+        case 10:
+            return ["游戏悍将刀锋50 AK450","航嘉冷静王至尊模组版","鑫谷GP600T钛金版","爱国者电竞500"]
+        default:
+            return [""]
         }
     }
 
