@@ -19,9 +19,12 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     //get用作判定是显卡类还是CPU类还是其他种类
     var get: String?
     var get1: Array<String>?
+    var get2: Array<String>?
     var Save: String!
     var arrayNames: Array<String> = []
     var arrayNames_1: Array<String> = []
+    var numb: Array<Int> = []
+    var wenzi = ["核心频率","显存类型","散热方式","接口类型","3DAPI","显卡类型","保修政策"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +65,6 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
                     let json = JSON(value)
                     self.arrayNames = json["Port"].arrayValue.map({$0.stringValue})
                     self.arrayNames_1 = json["Type"].arrayValue.map({$0.stringValue})
-                    print(self.arrayNames)
-                    print(self.arrayNames_1)
                     self.performSegue(withIdentifier: "into", sender: nil)
                     tableView.deselectRow(at: indexPath, animated: true)
                 case .failure(let error):
@@ -73,23 +74,50 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var num = 0, num1 = 0, num2 = 0
+        var se = 0, se1 = 0, se2 = 0
+        var ss = [[String]]()
+        var s = [String]()
+        var nn = [[String]]()
+        var n = [String]()
+        let length = arrayNames.count
+        
         if segue.identifier == "into"{
             let dest: WhatViewController = segue.destination as! WhatViewController
             dest.get = Save
-            
-            var ss = [[String]]()
-            ss.append([])
-//            let ss = [
-//            [self.arrayNames[0],self.arrayNames[1],self.arrayNames[2],self.arrayNames[3],self.arrayNames[4]],
-//            [self.arrayNames[5],self.arrayNames[6]],
-//            [self.arrayNames[7],self.arrayNames[8],self.arrayNames[9],self.arrayNames[10]],
-//            [self.arrayNames[11]],
-//            [self.arrayNames[12],self.arrayNames[13],self.arrayNames[14]],
-//            [self.arrayNames[15],self.arrayNames[16]],
-//            [self.arrayNames[17],self.arrayNames[18],self.arrayNames[19],self.arrayNames[20],self.arrayNames[21],self.arrayNames[22]],
-//            [self.arrayNames[23],self.arrayNames[24],self.arrayNames[25],self.arrayNames[26]]
-//            ]
-            //dest.get1 = ss
+            while num1 < wenzi.count{
+            while arrayNames[num] != wenzi[num1] {
+                s.insert(arrayNames[num], at: num2)
+                num += 1
+                num2 += 1
+            }
+            ss.append(s)
+                numb.append(s.count)
+            s.removeAll()
+                num2 = 0
+                num1 += 1
+            }
+            while num < length {
+                s.insert(arrayNames[num], at: num2)
+                num2 += 1
+                num += 1
+            }
+            numb.append(s.count)
+            ss.append(s)
+            dest.get1 = ss
+            while se < num {
+            while se2 < numb[se1]{
+                n.insert(arrayNames_1[se], at: se2)
+                se2 += 1
+                se += 1
+            }
+                se2 = 0
+                se1 += 1
+            nn.append(n)
+            n.removeAll()
+            }
+            dest.get2 = nn
+            numb.removeAll()
         }
     }
 }

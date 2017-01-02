@@ -15,16 +15,7 @@ class WhatViewController: UIViewController, UITableViewDelegate, UITableViewData
     var get: String?
     var get1: [[String]]?
     var titlehead: String?
-    var a = [
-        ["芯片厂商", "显卡芯片", "显示芯片系列", "制作工艺", "核心代号"],
-        ["核心频率", "显存频率"],
-        ["显存类型", "显存容量", "显存位宽", "最大分辨率"],
-        ["散热方式"],
-        ["接口类型", "I/O接口", "电源接口"],
-        ["3D API", "流处理单元"],
-        ["显卡类型", "支持HDCP", "供电模式", "最大功耗", "建议电源", "上市日期"],
-        ["保修政策", "质保时间", "质保备注", "客服电话"]
-    ]
+    var get2: [[String]]?
     
     
     override func viewDidLoad() {
@@ -39,17 +30,28 @@ class WhatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return a[section].count
+        return get1![section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "data", for: indexPath)
-        cell.isUserInteractionEnabled = false
+//        cell.isUserInteractionEnabled = false
         let label = cell.viewWithTag(1) as! UILabel
         let label1 = cell.viewWithTag(2) as! UILabel
-        label.text = a[indexPath.section][indexPath.row]
-        label1.text = get1?[indexPath.section][indexPath.row]
+        label.text = get1![indexPath.section][indexPath.row]
+        label1.text = get2![indexPath.section][indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell:UITableViewCell! = tableView.cellForRow(at: indexPath)
+        let label = cell.viewWithTag(2) as! UILabel
+        let Save = label.text!
+        let alertController = UIAlertController(title: "详细信息",
+                                                message: Save, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

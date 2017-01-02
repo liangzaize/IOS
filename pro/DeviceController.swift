@@ -68,6 +68,7 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
         Wri.setContentOffset(CGPoint(x: 750, y: 0), animated: true)
         locat = 10
         Finally = true
+        Mid = false
         reload()
     }
     
@@ -295,14 +296,17 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
                 if locat == 0{
                     Wri.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
                     Mid = false
+                    reload()
                 }
                 else {
                     locat -= 1
                     if locat == 0 {
                         Wri.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
                         Mid = false
+                        reload()
                     } else {
                     Wri.setContentOffset(CGPoint(x: 375, y: 0), animated: false)
+                        reload()
                     }
                 }
                 break
@@ -312,8 +316,10 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
                     if Finally{
                         locat -= 1
                         Finally = false
+                        reload()
                     } else {
                         locat += 1
+                        reload()
                     }
                     Mid = true
                 }
@@ -321,14 +327,17 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
             case 750:
                 if locat == 10 {
                     Wri.setContentOffset(CGPoint(x: 750, y: 0), animated: true)
+                    reload()
                 } else {
                 locat += 1
                 if locat == 10 {
                     Wri.setContentOffset(CGPoint(x: 750, y: 0), animated: true)
                     Finally = true
                     Mid = false
+                    reload()
                 } else {
                 Wri.setContentOffset(CGPoint(x: 375, y: 0), animated: false)
+                    reload()
                 }
                 }
                 break
