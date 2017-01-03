@@ -22,7 +22,7 @@ class SetPerson: UIViewController, ModeViewControlDelegate{
     }
     @IBOutlet weak var level: UILabel!
     
-    var level_1: String = " "
+    var level_1: String?
     var modeView = Zhu()
     
     
@@ -32,9 +32,8 @@ class SetPerson: UIViewController, ModeViewControlDelegate{
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print(animated)
         if animated == true {
-            modeView.back()
+//            modeView.back()
         }
     }
     

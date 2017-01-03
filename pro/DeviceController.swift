@@ -260,7 +260,7 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
     func xinghao(_ kan: Int) -> Array<String> {
         switch kan {
         case 0:
-            return ["GTX-1080","GTX-1070","GTX-1060","GTX-1050Ti","GTX-1050","GTX-980Ti","GTX-980","GTX-970","GTX-960","GTX-950","GTX-Titan","GTX-750Ti","R9-FURY-X","RX-480","RX-470","RX-470D","RX-460","R9-390X","R9-390","R9-380X","R9-380","R9-370X","R9-370","R7-360","R7-350"]
+            return ["GTX-1080","GTX-1070","GTX-1060"]
         case 1:
             return ["I7-6700k","I7-6600","I7-4790"]
         case 2:

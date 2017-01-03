@@ -20,7 +20,6 @@ class Zhu: UIViewController, UITabBarDelegate{
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var imageview: UIImageView!
     
-    var arrayNames: Array<String> = []
     var delegate_1: ModeViewControlDelegate?
     var baa: String?
     
@@ -37,10 +36,10 @@ class Zhu: UIViewController, UITabBarDelegate{
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.tag {
         case 1:
-            sendtheala("https://localhost:8443/Hello")
+            sendtheala("https://localhost:8443/sign")
             break
         case 2:
-            sendtheala("https://localhost:8443/Hello")
+            sendtheala("https://localhost:8443/sign")
             break
         case 3:
             self.dismiss(animated: true, completion: nil)
@@ -50,7 +49,7 @@ class Zhu: UIViewController, UITabBarDelegate{
     }
     
     func sendtheala(_ URL: String){
-        let send: Dictionary = ["Account": account.text!, "Password": password.text!] as [String : Any]
+        let send: Dictionary = ["Type": account.text!, "Fa": password.text!] as [String : Any]
         
         //发送账号密码
         Alamofire.request(URL, method: .post, parameters: send, encoding: JSONEncoding.default)
@@ -59,17 +58,23 @@ class Zhu: UIViewController, UITabBarDelegate{
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
-                    self.arrayNames =  json["Port"].arrayValue.map({$0.stringValue})
-                    self.back()
-                    self.dismiss(animated: true, completion: nil)
+                    if json["Port"].boolValue == true {
+                        self.dismiss(animated: true, completion: nil)
+                        self.baa = self.account.text
+                        self.delegate_1?.changeLabel(newString: self.baa!)
+
+                    } else {
+                        let alertController = UIAlertController(title: "注册失败",
+                                                                message: "用户名已存在", preferredStyle: .alert)
+                        let cancelAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)
+                        alertController.addAction(cancelAction)
+                        self.present(alertController, animated: true, completion: nil)
+
+                    }
                 case .failure(let error):
                     print(error)
                 }
         }
-    }
-    
-    func back (){
-        delegate_1?.changeLabel(newString: arrayNames[0])
     }
 }
 
