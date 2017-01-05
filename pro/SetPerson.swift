@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SetPerson: UIViewController, ModeViewControlDelegate{
+class SetPerson: UIViewController{
     
     @IBOutlet weak var gold: UILabel!
     @IBOutlet weak var silver: UILabel!
@@ -21,25 +21,26 @@ class SetPerson: UIViewController, ModeViewControlDelegate{
         //nj
     }
     @IBOutlet weak var level: UILabel!
+
+    @IBAction func zhuToSet(segue: UIStoryboardSegue){
+        if segue.identifier == "zhuToSet"{
+            let data = segue.source as! Zhu
+            self.touxiang.text = data.account.text
+            self.level.text = data.level
+            self.level.text = "懵懂菜鸟"
+        }
+    }
     
     var level_1: String?
-    var modeView = Zhu()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        modeView.delegate_1 = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if animated == true {
 //            modeView.back()
         }
-    }
-    
-    func changeLabel(newString: String){
-        level_1 = newString
-        print(level_1)
     }
     
     override func didReceiveMemoryWarning() {

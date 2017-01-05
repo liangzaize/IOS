@@ -15,14 +15,19 @@ import SwiftyJSON
 
 class Zhu: UIViewController, UITabBarDelegate{
     
+    var editModel: String?
+    
     @IBOutlet weak var account: UITextField!
     @IBOutlet weak var tab: UITabBar!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var imageview: UIImageView!
     
-    var delegate_1: ModeViewControlDelegate?
-    var baa: String?
+    var quit: Bool = false
+    var money: Int = 0
+    var photo: String? = nil
+    var level: String = ""
     
+    @IBOutlet weak var hint: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         imageview.loadGif(name: "登录界面")
@@ -33,15 +38,41 @@ class Zhu: UIViewController, UITabBarDelegate{
         super.didReceiveMemoryWarning()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        if quit == false {
+        editModel = account.text!
+            
+        self.performSegue(withIdentifier: "zhuToSet", sender: nil)
+        }
+    }
+    
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        let pattern = "^[a-z0-9A-Z\\u4e00-\\u9fa5]*$"
+        let matcher = MyRegex(pattern)
+            
         switch item.tag {
         case 1:
-            sendtheala("https://localhost:8443/sign")
+            if (account.text?.characters.count)! < 6 || (account.text?.characters.count)! > 12{
+                hint.text = "用户名字太短或太长，请确保在6~12个字符的范围"
+            } else if matcher.match(input: account.text!) == false{
+                hint.text = "非法用户名，请使用汉字、英文字母、数字或下划线"
+            } else if (password.text?.characters.count)! < 6 {
+                hint.text = "密码过弱，至少为6位字符"
+            }
+            else {
+                sendtheala("https://localhost:8443/sign")
+            }
             break
         case 2:
-            sendtheala("https://localhost:8443/sign")
+            if (account.text?.characters.count)! < 6 || (account.text?.characters.count)! > 12
+            || matcher.match(input: account.text!) == false {
+                hint.text = "用户名/密码错误"
+            } else {
+                sendtheala("https://localhost:8443/login")
+            }
             break
         case 3:
+            quit = true
             self.dismiss(animated: true, completion: nil)
         default:
             break
@@ -60,16 +91,19 @@ class Zhu: UIViewController, UITabBarDelegate{
                     let json = JSON(value)
                     if json["Port"].boolValue == true {
                         self.dismiss(animated: true, completion: nil)
-                        self.baa = self.account.text
-                        self.delegate_1?.changeLabel(newString: self.baa!)
-
+                    } else if json["bingo"].boolValue == true {
+                        self.level = json["level"].stringValue
+                        self.money = json["money"].intValue
+                        self.photo = json["photo"].stringValue
+                        self.dismiss(animated: true, completion: nil)
+                    } else if json["bingo"].boolValue == false{
+                        self.hint.text = "用户名/密码错误"
                     } else {
                         let alertController = UIAlertController(title: "注册失败",
                                                                 message: "用户名已存在", preferredStyle: .alert)
                         let cancelAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)
                         alertController.addAction(cancelAction)
                         self.present(alertController, animated: true, completion: nil)
-
                     }
                 case .failure(let error):
                     print(error)
@@ -78,6 +112,21 @@ class Zhu: UIViewController, UITabBarDelegate{
     }
 }
 
-protocol ModeViewControlDelegate{
-    func changeLabel(newString: String)
+struct MyRegex {
+    let regex: NSRegularExpression?
+    
+    init(_ pattern: String) {
+        regex = try? NSRegularExpression(pattern: pattern,
+                                         options: .caseInsensitive)
+    }
+    
+    func match(input: String) -> Bool {
+        if let matches = regex?.matches(in: input,
+                                        options: [],
+                                        range: NSMakeRange(0, (input as NSString).length)) {
+            return matches.count > 0
+        } else {
+            return false
+        }
+    }
 }
