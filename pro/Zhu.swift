@@ -15,8 +15,6 @@ import SwiftyJSON
 
 class Zhu: UIViewController, UITabBarDelegate{
     
-    var editModel: String?
-    
     @IBOutlet weak var account: UITextField!
     @IBOutlet weak var tab: UITabBar!
     @IBOutlet weak var password: UITextField!
@@ -40,8 +38,6 @@ class Zhu: UIViewController, UITabBarDelegate{
     
     override func viewWillDisappear(_ animated: Bool) {
         if quit == false {
-        editModel = account.text!
-            
         self.performSegue(withIdentifier: "zhuToSet", sender: nil)
         }
     }

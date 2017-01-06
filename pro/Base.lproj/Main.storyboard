@@ -173,6 +173,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkz-s2-KKs">
+                                <rect key="frame" x="26" y="146" width="46" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <state key="normal" title="更换头像"/>
+                                <connections>
+                                    <action selector="chance_p:" destination="kF9-oc-gOp" eventType="touchUpInside" id="Kfa-JL-yEA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -183,6 +191,7 @@
                             <constraint firstItem="91A-Pu-6Qj" firstAttribute="leading" secondItem="W4d-V1-jqq" secondAttribute="trailing" id="Gr7-H7-Aht"/>
                             <constraint firstAttribute="trailingMargin" secondItem="okr-Jf-nen" secondAttribute="trailing" id="Htp-07-meX"/>
                             <constraint firstItem="91A-Pu-6Qj" firstAttribute="top" secondItem="BOD-0V-sOm" secondAttribute="bottom" constant="31" id="J9c-hi-xw3"/>
+                            <constraint firstItem="gkz-s2-KKs" firstAttribute="leading" secondItem="Ewf-tl-xpv" secondAttribute="leadingMargin" constant="10" id="M7L-2l-6BP"/>
                             <constraint firstItem="5Qt-QM-ert" firstAttribute="leading" secondItem="1nB-6Z-oLr" secondAttribute="trailing" id="Mxy-gf-Nrh"/>
                             <constraint firstItem="W4d-V1-jqq" firstAttribute="top" secondItem="BOD-0V-sOm" secondAttribute="bottom" constant="36" id="Rvv-wq-n9g"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BOD-0V-sOm" secondAttribute="trailing" id="Ugs-pc-3Tn"/>
@@ -190,6 +199,7 @@
                             <constraint firstItem="okr-Jf-nen" firstAttribute="top" secondItem="BOD-0V-sOm" secondAttribute="bottom" constant="2" id="YjE-px-ML7"/>
                             <constraint firstItem="5Qt-QM-ert" firstAttribute="top" secondItem="BOD-0V-sOm" secondAttribute="bottom" constant="31" id="fPf-JT-4yc"/>
                             <constraint firstItem="enn-JD-CVd" firstAttribute="leading" secondItem="91A-Pu-6Qj" secondAttribute="trailing" id="gI7-Ql-yuz"/>
+                            <constraint firstItem="gkz-s2-KKs" firstAttribute="top" secondItem="B0U-b1-PLc" secondAttribute="bottom" id="hiH-Dn-09y"/>
                             <constraint firstItem="91A-Pu-6Qj" firstAttribute="top" secondItem="okr-Jf-nen" secondAttribute="bottom" constant="2" id="jKO-6a-aPE"/>
                             <constraint firstItem="GCd-mu-AOt" firstAttribute="leading" secondItem="B0U-b1-PLc" secondAttribute="trailing" constant="8" id="kyx-hY-EPO"/>
                             <constraint firstItem="B0U-b1-PLc" firstAttribute="leading" secondItem="Ewf-tl-xpv" secondAttribute="leadingMargin" id="nR6-uh-oyt"/>
@@ -202,12 +212,12 @@
                     <navigationItem key="navigationItem" title="设置" id="aYa-dg-u3j">
                         <barButtonItem key="rightBarButtonItem" title="登录" style="plain" id="s2i-2e-UgK">
                             <connections>
-                                <action selector="sign:" destination="kF9-oc-gOp" id="mJE-Ly-S7B"/>
                                 <segue destination="EkJ-6m-rQq" kind="modal" id="aR5-FT-4JK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="chance" destination="gkz-s2-KKs" id="aoP-nI-lx0"/>
                         <outlet property="copper" destination="91A-Pu-6Qj" id="YdW-S3-kFb"/>
                         <outlet property="gold" destination="GCd-mu-AOt" id="2nX-MK-wUR"/>
                         <outlet property="level" destination="okr-Jf-nen" id="3Sg-ry-crH"/>
@@ -255,7 +265,7 @@
                                 <items>
                                     <tabBarItem tag="1" title="注册" image="Gold" id="2Lo-TY-tT8"/>
                                     <tabBarItem tag="2" title="登录" image="Gold" id="eHb-8b-Ow0"/>
-                                    <tabBarItem tag="3" title="退出" image="Gold" id="gld-xA-fwj"/>
+                                    <tabBarItem tag="3" title="取消" image="Gold" id="gld-xA-fwj"/>
                                 </items>
                             </tabBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56e-eG-Yoe">
