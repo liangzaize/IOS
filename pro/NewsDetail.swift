@@ -16,25 +16,17 @@ class NewsDetail: UIViewController {
     @IBOutlet weak var news: UIWebView!
     var get: String!
     var get1: String!
-    var detail: Array<String> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let send: Dictionary = ["Title": get, "Content": get1] as [String : Any]
-        //给服务器发送请求，把信息发送回来
-        Alamofire.request("https://40.74.84.240:8080/newsdata", method: .post, parameters: send, encoding: JSONEncoding.default)
-            .validate()
-            .responseJSON { response in
-                switch response.result {
-                case .success(let value):
-                    let json = JSON(value)
-                    self.detail = json["Port"].arrayValue.map({$0.stringValue})
-                    self.news.loadHTMLString(self.detail[0],baseURL:nil)
-                case .failure(let error):
-                    print(error)
-                }
+        let parameters: Parameters = ["Type": get,"Fa": get1]
+        Alamofire.request("https://localhost:8443/newsdata", parameters: parameters).responseString {
+            response in
+            self.news.loadHTMLString(response.result.value!, baseURL: nil)
+            //(response.result.value,baseURL:nil)
         }
+        
     }
     
     override func didReceiveMemoryWarning() {

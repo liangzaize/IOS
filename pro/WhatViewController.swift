@@ -35,7 +35,6 @@ class WhatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "data", for: indexPath)
-//        cell.isUserInteractionEnabled = false
         let label = cell.viewWithTag(1) as! UILabel
         let label1 = cell.viewWithTag(2) as! UILabel
         label.text = get1![indexPath.section][indexPath.row]
@@ -55,7 +54,7 @@ class WhatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 8
+        return 5
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -63,18 +62,12 @@ class WhatViewController: UIViewController, UITableViewDelegate, UITableViewData
         case 0:
             titlehead = "显卡核心"
         case 1:
-            titlehead = "显卡频率"
-        case 2:
             titlehead = "显存规格"
-        case 3:
-            titlehead = "显卡散热"
-        case 4:
+        case 2:
             titlehead = "显卡接口"
-        case 5:
-            titlehead = "物理特性"
-        case 6:
+        case 3:
             titlehead = "其它参数"
-        case 7:
+        case 4:
             titlehead = "保修信息"
         default:
             break

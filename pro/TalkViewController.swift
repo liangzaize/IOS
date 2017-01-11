@@ -50,24 +50,34 @@ class TalkViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "news", for: indexPath)
         let lebel = cell.viewWithTag(1) as! UILabel
         let lebel1 = cell.viewWithTag(2) as! UILabel
-        _ = cell.viewWithTag(3) as! UIImageView
+        let pict = cell.viewWithTag(3) as! UIImageView
         lebel.text = self.titlename[indexPath.row]
         lebel1.text = self.content[indexPath.row]
+        if let imageURL = URL(string:self.picture[indexPath.row]) {
+            Alamofire.request(imageURL, method: .get).responseData { response in
+                guard let data = response.result.value else {
+                    pict.image = nil //未加载到海报则空白
+                    //cell.imageView?.image = UIImage(named: "failed") //未加载到海报显示默认的“暂无图片”
+                    return
+                }
+                pict.image = UIImage(data: data)
+            }
+        }
         return cell
     }
     
     func connect(incount count1: Int){
     let send: Dictionary = ["Type": "hukangze", "Count": count1] as [String : Any]
         //给服务器发送请求，把信息发送回来
-        Alamofire.request("https://40.74.84.240:8080/getnews", method: .post, parameters: send, encoding: JSONEncoding.default)
+        Alamofire.request("https://localhost:8443/news", method: .post, parameters: send, encoding: JSONEncoding.default)
             .validate()
             .responseJSON { response in
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
                     self.titlename = json["Title"].arrayValue.map({$0.stringValue})
-                    self.content = json["Content"].arrayValue.map({$0.stringValue})
-                    self.picture = json["Picture"].arrayValue.map({$0.stringValue})
+                    self.content = json["Summarize"].arrayValue.map({$0.stringValue})
+                    self.picture = json["Image"].arrayValue.map({$0.stringValue})
                     self.uitableview.reloadData()
                     self.refreshControl.endRefreshing()
                 case .failure(let error):
@@ -84,7 +94,6 @@ class TalkViewController: UIViewController, UITableViewDelegate, UITableViewData
         save1 = label1.text!
         tableView.deselectRow(at: indexPath, animated: true)
         self.performSegue(withIdentifier: "newsdata", sender: nil)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

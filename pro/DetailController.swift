@@ -24,7 +24,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
     var arrayNames: Array<String> = []
     var arrayNames_1: Array<String> = []
     var numb: Array<Int> = []
-    var wenzi = ["核心频率","显存类型","散热方式","接口类型","3DAPI","显卡类型","保修政策"]
+    var wenzi = ["显存频率","接口类型","显卡类型","保修政策"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,6 +105,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
             numb.append(s.count)
             ss.append(s)
             dest.get1 = ss
+            
             while se < num {
             while se2 < numb[se1]{
                 n.insert(arrayNames_1[se], at: se2)
