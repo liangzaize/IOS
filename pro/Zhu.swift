@@ -13,7 +13,7 @@ import Alamofire
 import SwiftyJSON
 
 
-class Zhu: UIViewController, UITabBarDelegate{
+class Zhu: UIViewController, UITabBarDelegate, UITextFieldDelegate{
     
     @IBOutlet weak var account: UITextField!
     @IBOutlet weak var tab: UITabBar!
@@ -29,7 +29,20 @@ class Zhu: UIViewController, UITabBarDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         imageview.loadGif(name: "登录界面")
+        account.delegate = self
+        password.delegate = self
         tab.delegate = self
+        account.returnKeyType = UIReturnKeyType.done
+        password.returnKeyType = UIReturnKeyType.done
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(imageTapped(img:)))
+        imageview.isUserInteractionEnabled = true
+        imageview.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    func imageTapped(img: AnyObject)
+    {
+        account.resignFirstResponder()
+        password.resignFirstResponder()
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,7 +69,7 @@ class Zhu: UIViewController, UITabBarDelegate{
                 hint.text = "密码过弱，至少为6位字符"
             }
             else {
-                sendtheala("https://localhost:8443/sign")
+                sendtheala("https://192.168.0.106:8443/sign")
             }
             break
         case 2:
@@ -64,7 +77,7 @@ class Zhu: UIViewController, UITabBarDelegate{
             || matcher.match(input: account.text!) == false {
                 hint.text = "用户名/密码错误"
             } else {
-                sendtheala("https://localhost:8443/login")
+                sendtheala("https://192.168.0.106:8443/login")
             }
             break
         case 3:
@@ -86,6 +99,9 @@ class Zhu: UIViewController, UITabBarDelegate{
                 case .success(let value):
                     let json = JSON(value)
                     if json["Port"].boolValue == true {
+                        self.level = "懵懂菜鸟"
+                        self.money = 0
+                        self.photo = "null"
                         self.dismiss(animated: true, completion: nil)
                     } else if json["bingo"].boolValue == true {
                         self.level = json["level"].stringValue
@@ -105,6 +121,12 @@ class Zhu: UIViewController, UITabBarDelegate{
                     print(error)
                 }
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //收起键盘
+        textField.resignFirstResponder()
+        return true;
     }
 }
 

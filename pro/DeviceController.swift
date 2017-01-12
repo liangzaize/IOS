@@ -77,7 +77,7 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
     var Finally = false
     var Save: String!
     var arrayNames: Array<String> = []
-    let selfSignedHosts = ["localhost"]
+    let selfSignedHosts = ["localhost","192.168.0.106"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -234,7 +234,7 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
         Save = label.text!
         let send: Dictionary = ["Type": Save] as [String : Any]
         //发送硬件的具体型号
-        Alamofire.request("https://localhost:8443/a", method: .post, parameters: send, encoding: JSONEncoding.default)
+        Alamofire.request("https://192.168.0.106:8443/a", method: .post, parameters: send, encoding: JSONEncoding.default)
             .validate()
             .responseJSON { response in
                 switch response.result {
