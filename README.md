@@ -1,4 +1,4 @@
-# 《显卡佬》---IOS客户端版本更新日志
+# 《显卡佬》---IOS客户端调试日志
 [![Build Status](https://travis-ci.org/liangzaize/IOS.svg?branch=master)](https://travis-ci.org/liangzaize/IOS)
 ![Swift 3.1](https://img.shields.io/badge/Swift-3.1-orange.svg?style=flat)
 ![Xcode 8.2](https://img.shields.io/badge/Xcode-8.2-blue.svg?style=flat)
@@ -7,6 +7,8 @@
 -《显卡佬》主要的服务领域在计算机硬件，本软件集成了包括各类电脑硬件的参数、电脑硬件方面新闻、用户论坛等功能，用户可以在程序中看到所有电脑硬件比如显卡、CPU等的参数，并且可以浏览最新的与电脑有关的新闻。
 [跳至Java服务端仓库](https://github.com/liangzaize/Java)
 ---
+###11/Jan/2017
+修正原有的新闻功能旧代码，与新服务端进行对接，实现新闻的简要界面（图片、标题、摘要）和具体内容与jsp对接
 ###6/Jan/2017
 新增更换头像图片功能，用户登录后在头像下方会出现一个更换头像的button，点击可以选择拍照或者在本地提取相片，然后把图片压缩大小后编码成base64发送给服务端
 ###5/Jan/2017
