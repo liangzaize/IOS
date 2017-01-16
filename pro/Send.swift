@@ -8,72 +8,98 @@
 
 import Foundation
 import UIKit
+import Alamofire
+import SwiftyJSON
 
-class Send: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UITextViewDelegate{
+class Send: UIViewController, UITextFieldDelegate, UITextViewDelegate{
     @IBAction func send(_ sender: Any) {
+        titlewrite.resignFirstResponder()
+        text.resignFirstResponder()
         
+        dismiss(animated: true, completion: nil)
     }
+    @IBOutlet weak var text: UITextView!
+    @IBOutlet weak var bottom: NSLayoutConstraint!
     @IBAction func cancel(_ sender: Any) {
+        titlewrite.resignFirstResponder()
+        text.resignFirstResponder()
         dismiss(animated: true, completion: nil)
     }
     @IBOutlet weak var arriternumber: UILabel!
     @IBOutlet weak var titlenumber: UILabel!
     @IBOutlet weak var titlewrite: UITextField!
-    
-    @IBOutlet weak var uipicker: UIPickerView!
-    var type: Int?
-    var colors = ["未选择","心情文章","硬件疑问","软件疑问","装机配置","见闻"]
-    var keyHeight = CGFloat() //键盘的高度
+    var placeholderLabel : UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        text.delegate = self
+        let myColor : UIColor = UIColor.gray
+        titlewrite.becomeFirstResponder()
+        NotificationCenter.default.addObserver(self, selector: #selector(Send.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         titlewrite.addTarget(self, action: #selector(Send.textwillchange), for: UIControlEvents.editingChanged)
         titlewrite.returnKeyType = UIReturnKeyType.done
-        let screenBounds:CGRect = UIScreen.main.bounds
-        let textview = UITextView(frame:CGRect(x:titlewrite.frame.origin.x, y:titlewrite.frame.origin.y + titlewrite.frame.size.height + 3, width:titlewrite.frame.width, height:screenBounds.height - (titlewrite.frame.origin.y + titlewrite.frame.size.height + 3) - 258))
-        textview.layer.borderWidth = 1  //边框粗细
-        textview.layer.borderColor = UIColor.gray.cgColor //边框颜色
-        self.view.addSubview(textview)
-        textview.delegate = self
-        textview.isEditable = true
-        textview.isSelectable = true
-        titlewrite.becomeFirstResponder()
+        text.layer.borderWidth = 0.4
+        text.layer.borderColor = myColor.cgColor
+        placeholderLabel = UILabel()
+        placeholderLabel.text = "内容"
+        placeholderLabel.font = UIFont.italicSystemFont(ofSize: (text.font?.pointSize)!)
+        placeholderLabel.sizeToFit()
+        text.addSubview(placeholderLabel)
+        placeholderLabel.frame.origin = CGPoint(x: titlewrite.frame.origin.x, y: (text.font?.pointSize)! / 2)
+        placeholderLabel.textColor = UIColor.lightGray
+        placeholderLabel.isHidden = !text.text.isEmpty
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int)->Int {
-        return colors.count
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        var label: UILabel
-        if let view = view as? UILabel {
-            label = view
-        } else {
-            label = UILabel()
+    func keyboardWillShow(notification : Notification) {
+        if let userInfo = notification.userInfo,
+            let value = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue,
+            let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? Double,
+            let curve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? UInt {
+            
+            let frame = value.cgRectValue
+            let intersection = frame.intersection(self.view.frame)
+            self.bottom.constant = intersection.height
+            UIView.animate(withDuration: duration, delay: 0.0,
+                           options: UIViewAnimationOptions(rawValue: curve), animations: {
+                            _ in
+                            self.view.layoutIfNeeded()
+            }, completion: nil)
         }
-        
-        label.textAlignment = .center
-        label.textColor = .white
-        label.font = UIFont(name: "SanFranciscoText-Light", size: 30)
-        label.text = colors[row]
-        return label
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //将在滑动停止后触发，并打印出选中列和行索引
-        type = row
+    func connect(){
+        let send: Dictionary = ["Type": titlewrite.text!, "Fa": text.text!] as [String : Any]
+        
+        let alertController = UIAlertController(title: "保存成功!",
+                                                message: nil, preferredStyle: .alert)
+        //显示提示框
+        self.present(alertController, animated: true, completion: nil)
+        
+        //发送账号密码
+        Alamofire.request("https://192.168.0.106/post", method: .post, parameters: send, encoding: JSONEncoding.default)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                        let a = json["Port"].boolValue
+                    if a == true {
+                        self.presentedViewController?.dismiss(animated: false, completion: nil)
+                    } else {
+                        self.presentedViewController?.dismiss(animated: false, completion: nil)
+                        let alertController = UIAlertController(title: "发送失败",
+                                                                message: nil, preferredStyle: .alert)
+                        //显示提示框
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+        }
     }
     
     func textwillchange(){
@@ -84,11 +110,12 @@ class Send: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITe
         } else if n! > 40 {
             titlenumber.textColor = .red
         }else {
-            titlenumber.textColor = .white
+            titlenumber.textColor = .black
         }
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        placeholderLabel.isHidden = !textView.text.isEmpty
         let n = textView.text.characters.count
         arriternumber.text = "\(n)"
         if n >= 200 && n <= 400{
@@ -96,7 +123,7 @@ class Send: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITe
         } else if n > 400 {
             arriternumber.textColor = .red
         }else {
-            arriternumber.textColor = .white
+            arriternumber.textColor = .black
         }
     }
 }

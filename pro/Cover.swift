@@ -12,6 +12,20 @@ import Alamofire
 import SwiftyJSON
 
 class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
+    @IBAction func tun(_ sender: Any) {
+        if a.title == "未登录"{
+            let alertController = UIAlertController(title: "请先登录",
+                                                    message: nil, preferredStyle: .alert)
+            //显示提示框
+            self.present(alertController, animated: true, completion: nil)
+            //两秒钟后自动消失
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                self.presentedViewController?.dismiss(animated: false, completion: nil)
+            }
+        } else {
+            self.performSegue(withIdentifier: "send", sender: self)
+        }
+    }
     
     @IBOutlet weak var a: UINavigationItem!
     
