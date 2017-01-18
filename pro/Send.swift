@@ -15,8 +15,7 @@ class Send: UIViewController, UITextFieldDelegate, UITextViewDelegate{
     @IBAction func send(_ sender: Any) {
         titlewrite.resignFirstResponder()
         text.resignFirstResponder()
-        
-        dismiss(animated: true, completion: nil)
+        connect()
     }
     @IBOutlet weak var text: UITextView!
     @IBOutlet weak var bottom: NSLayoutConstraint!
@@ -80,7 +79,7 @@ class Send: UIViewController, UITextFieldDelegate, UITextViewDelegate{
         self.present(alertController, animated: true, completion: nil)
         
         //发送账号密码
-        Alamofire.request("https://192.168.0.106/post", method: .post, parameters: send, encoding: JSONEncoding.default)
+        Alamofire.request("https://192.168.0.106:8443/post", method: .post, parameters: send, encoding: JSONEncoding.default)
             .validate()
             .responseJSON { response in
                 switch response.result {
@@ -89,6 +88,7 @@ class Send: UIViewController, UITextFieldDelegate, UITextViewDelegate{
                         let a = json["Port"].boolValue
                     if a == true {
                         self.presentedViewController?.dismiss(animated: false, completion: nil)
+                        self.dismiss(animated: true, completion: nil)
                     } else {
                         self.presentedViewController?.dismiss(animated: false, completion: nil)
                         let alertController = UIAlertController(title: "发送失败",

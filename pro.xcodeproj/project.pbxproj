@@ -10,6 +10,7 @@
 		69CCA3AA8C28590306AF7E9E /* Pods_proTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E197682C739472E07054F33 /* Pods_proTests.framework */; };
 		BD13C5C2D51244F8C26B24C7 /* Pods_pro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C01B068669CABBD86120725 /* Pods_pro.framework */; };
 		EBF0EA8BC13528649D799E5A /* Pods_proUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338DE98160F63DEDD69864FC /* Pods_proUITests.framework */; };
+		F31D67461E2F4D5900DCCC6C /* Zheng.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31D67451E2F4D5900DCCC6C /* Zheng.swift */; };
 		F339BDE71DE5C84D00289235 /* Zhu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339BDE61DE5C84D00289235 /* Zhu.swift */; };
 		F36467761DC1C00F00BD71E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36467751DC1C00F00BD71E3 /* AppDelegate.swift */; };
 		F36467781DC1C00F00BD71E3 /* DeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36467771DC1C00F00BD71E3 /* DeviceController.swift */; };
@@ -56,6 +57,7 @@
 		7E197682C739472E07054F33 /* Pods_proTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_proTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86242B3E5C7CC5E56D257513 /* Pods-proUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-proUITests/Pods-proUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EF34A4B13487593511E5B997 /* Pods-proUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-proUITests/Pods-proUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F31D67451E2F4D5900DCCC6C /* Zheng.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zheng.swift; sourceTree = "<group>"; };
 		F339BDE61DE5C84D00289235 /* Zhu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zhu.swift; sourceTree = "<group>"; };
 		F36467721DC1C00F00BD71E3 /* pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F36467751DC1C00F00BD71E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			children = (
 				F37836181DE3445B00D451B5 /* Cover.swift */,
 				F369FEE51E29F10000BE3821 /* Send.swift */,
+				F31D67451E2F4D5900DCCC6C /* Zheng.swift */,
 			);
 			name = Tao;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				F37836171DE335DD00D451B5 /* NewsDetail.swift in Sources */,
 				F3D7A2BE1DC3B8B800A99EAE /* WhatViewController.swift in Sources */,
 				F364677A1DC1C01000BD71E3 /* TalkViewController.swift in Sources */,
+				F31D67461E2F4D5900DCCC6C /* Zheng.swift in Sources */,
 				F37836191DE3445B00D451B5 /* Cover.swift in Sources */,
 				F339BDE71DE5C84D00289235 /* Zhu.swift in Sources */,
 				F378361B1DE346A000D451B5 /* SetPerson.swift in Sources */,

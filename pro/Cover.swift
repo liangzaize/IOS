@@ -72,6 +72,35 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell:UITableViewCell! = tableView.cellForRow(at: indexPath)
+        let label = cell.viewWithTag(1) as! UILabel
+        Save = label.text!
+        let send: Dictionary = ["Type": Save] as [String : Any]
+        //发送硬件的具体型号
+        Alamofire.request("https://192.168.0.106:8443/zheng", method: .post, parameters: send, encoding: JSONEncoding.default)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    self.arrayNames =  json["Type"].arrayValue.map({$0.stringValue})
+                    self.performSegue(withIdentifier: "gotodetail", sender: nil)
+                    tableView.deselectRow(at: indexPath, animated: true)
+                case .failure(let error):
+                    print(error)
+                }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "gotozheng"{
+            let dest: DetailController = segue.destination as! Zheng
+            dest.get = Save
+            dest.get1 = self.arrayNames
+        }
+    }
+    
     //上拉刷新视图
     private func setupInfiniteScrollingView() {
         self.loadMoreView = UIView(frame: CGRect(x: 0, y: tableview.contentSize.height,
@@ -89,6 +118,10 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
                                              height: activityViewIndicator.frame.height)
         activityViewIndicator.startAnimating()
         self.loadMoreView!.addSubview(activityViewIndicator)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        refreshData()
     }
     
     func refreshData() {
