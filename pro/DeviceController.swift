@@ -144,11 +144,9 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
                 // grab the identity
                 let identityPointer:AnyObject? = certEntry["identity"];
                 let secIdentity:SecIdentity = identityPointer as! SecIdentity!;
-                print("\(identityPointer)  :::: \(secIdentity)")
                 // grab the trust
                 let trustPointer:AnyObject? = certEntry["trust"];
                 let trust:SecTrust = trustPointer as! SecTrust;
-                print("\(trustPointer)  :::: \(trust)")
                 // grab the cert
                 let chainPointer:AnyObject? = certEntry["chain"];
                 identityAndTrust = IdentityAndTrust(identityRef: secIdentity,

@@ -28,6 +28,7 @@
 		F3BF6BD21DF2D5600003A569 /* 登录界面.gif in Resources */ = {isa = PBXBuildFile; fileRef = F3BF6BD11DF2D5600003A569 /* 登录界面.gif */; };
 		F3C7D1221DC243F0004C84E7 /* DetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7D1211DC243F0004C84E7 /* DetailController.swift */; };
 		F3D7A2BE1DC3B8B800A99EAE /* WhatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7A2BD1DC3B8B800A99EAE /* WhatViewController.swift */; };
+		F3DDD84B1E307A47001A5201 /* 加载中.gif in Resources */ = {isa = PBXBuildFile; fileRef = F3DDD84A1E307A47001A5201 /* 加载中.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		F3BF6BD11DF2D5600003A569 /* 登录界面.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "登录界面.gif"; path = "../../../Pictures/显卡佬项目图片素材/登录界面.gif"; sourceTree = "<group>"; };
 		F3C7D1211DC243F0004C84E7 /* DetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailController.swift; sourceTree = "<group>"; };
 		F3D7A2BD1DC3B8B800A99EAE /* WhatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatViewController.swift; sourceTree = "<group>"; };
+		F3DDD84A1E307A47001A5201 /* 加载中.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "加载中.gif"; path = "../../../Pictures/显卡佬项目图片素材/加载中.gif"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 		F31558981DE467200074DFC4 /* photo */ = {
 			isa = PBXGroup;
 			children = (
+				F3DDD84A1E307A47001A5201 /* 加载中.gif */,
 				F3BF6BD11DF2D5600003A569 /* 登录界面.gif */,
 			);
 			name = photo;
@@ -360,6 +363,7 @@
 				F37678851E18970F00C2CAC8 /* mykey.p12 in Resources */,
 				F36467821DC1C01000BD71E3 /* LaunchScreen.storyboard in Resources */,
 				F364677F1DC1C01000BD71E3 /* Assets.xcassets in Resources */,
+				F3DDD84B1E307A47001A5201 /* 加载中.gif in Resources */,
 				F364677D1DC1C01000BD71E3 /* Main.storyboard in Resources */,
 				F3BF6BD21DF2D5600003A569 /* 登录界面.gif in Resources */,
 			);

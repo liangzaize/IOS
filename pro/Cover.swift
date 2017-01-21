@@ -37,6 +37,10 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
     var refreshControl = UIRefreshControl()
     var loadMoreEnable = true
     var loadMoreView: UIView?
+    var timeStamp: Int64?
+    var timeu: Array<Int64> = [0]
+    var Save: String?
+    var Save1: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,10 +66,24 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
         let lebel = cell.viewWithTag(1) as! UILabel
         let lebel1 = cell.viewWithTag(2) as! UILabel
         let lebel2 = cell.viewWithTag(3) as! UILabel
+        let lebel3 = cell.viewWithTag(4) as! UILabel
+        let lebel4 = cell.viewWithTag(5) as! UILabel
         lebel.text = self.TitleShow[indexPath.row]
         lebel1.text = self.Name[indexPath.row]
         lebel2.text = "\(self.Number[indexPath.row])"
-        
+        let t = timeStamp! - self.timeu[indexPath.row]
+        if self.timeu[indexPath.row] == 0 {
+            lebel3.text = ""
+        } else if t < 60 {
+            lebel3.text = "刚才"
+        } else if t < 3600 {
+            lebel3.text = "\(t / 60)分钟前"
+        } else if t < 86400 {
+            lebel3.text = "\(t / 3600)小时前"
+        } else {
+            lebel3.text = "\(t / 86400)天前"
+        }
+        lebel4.text = "\(self.timeu[indexPath.row])"
         if (loadMoreEnable && indexPath.row == TitleShow.count - 1) {
             connect(incount: TitleShow.count + 11)
         }
@@ -74,30 +92,19 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell:UITableViewCell! = tableView.cellForRow(at: indexPath)
-        let label = cell.viewWithTag(1) as! UILabel
-        Save = label.text!
-        let send: Dictionary = ["Type": Save] as [String : Any]
-        //发送硬件的具体型号
-        Alamofire.request("https://192.168.0.106:8443/zheng", method: .post, parameters: send, encoding: JSONEncoding.default)
-            .validate()
-            .responseJSON { response in
-                switch response.result {
-                case .success(let value):
-                    let json = JSON(value)
-                    self.arrayNames =  json["Type"].arrayValue.map({$0.stringValue})
-                    self.performSegue(withIdentifier: "gotodetail", sender: nil)
-                    tableView.deselectRow(at: indexPath, animated: true)
-                case .failure(let error):
-                    print(error)
-                }
-        }
+        let label = cell.viewWithTag(5) as! UILabel
+        let label1 = cell.viewWithTag(2) as! UILabel
+        Save = label.text
+        Save1 = label1.text
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.performSegue(withIdentifier: "gotozheng", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "gotozheng"{
-            let dest: DetailController = segue.destination as! Zheng
+            let dest: Zheng = segue.destination as! Zheng
             dest.get = Save
-            dest.get1 = self.arrayNames
+            dest.get1 = Save1
         }
     }
     
@@ -132,6 +139,9 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
     func connect(incount count1: Int){
         let send: Dictionary = ["Type": "hukangze", "Count": count1] as [String : Any]
         loadMoreEnable = false
+        let now = NSDate()
+        let timeInterval:TimeInterval = now.timeIntervalSince1970
+        timeStamp = Int64(timeInterval)
         //给服务器发送请求，把信息发送回来
         Alamofire.request("https://192.168.0.106:8443/talk", method: .post, parameters: send, encoding: JSONEncoding.default)
             .validate()
@@ -144,6 +154,7 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
                         self.TitleShow = json["Title"].arrayValue.map({$0.stringValue})
                         self.Name = json["Name"].arrayValue.map({$0.stringValue})
                         self.Number = json["Number"].arrayValue.map({$0.intValue})
+                        self.timeu = json["Posttime"].arrayValue.map({$0.int64Value})
                         if !json["Account"].stringValue.isEmpty {
                             self.a.title = json["Account"].stringValue
                         }
@@ -161,8 +172,13 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
                             self.tableview.tableFooterView = UIView()
                         }
                         self.TitleShow += json["Title"].arrayValue.map({$0.stringValue})
-                        self.Name += json["Summarize"].arrayValue.map({$0.stringValue})
-                        self.Number += json["Image"].arrayValue.map({$0.intValue})
+                        self.Name += json["Name"].arrayValue.map({$0.stringValue})
+                        self.Number += json["Number"].arrayValue.map({$0.intValue})
+                        self.timeu = json["Posttime"].arrayValue.map({$0.int64Value})
+                        if !json["Account"].stringValue.isEmpty {
+                            self.a.title = json["Account"].stringValue
+                        }
+
                         self.tableview.reloadData()
                         self.refreshControl.endRefreshing()
                     }
