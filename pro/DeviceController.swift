@@ -238,7 +238,7 @@ class DeviceController: UIViewController, UIScrollViewDelegate, UITableViewDeleg
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
-                    self.arrayNames =  json["Type"].arrayValue.map({$0.stringValue})
+                    self.arrayNames =  json["Head"].arrayValue.map({$0.stringValue})
                     self.performSegue(withIdentifier: "gotodetail", sender: nil)
                     tableView.deselectRow(at: indexPath, animated: true)
                 case .failure(let error):

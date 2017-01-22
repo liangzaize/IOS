@@ -151,14 +151,14 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
                     let json = JSON(value)
                     switch count1 {
                     case 10:
-                        self.TitleShow = json["Title"].arrayValue.map({$0.stringValue})
-                        self.Name = json["Name"].arrayValue.map({$0.stringValue})
-                        self.Number = json["Number"].arrayValue.map({$0.intValue})
+                        self.TitleShow = json["Head"].arrayValue.map({$0.stringValue})
+                        self.Name = json["Body"].arrayValue.map({$0.stringValue})
+                        self.Number = json["Image"].arrayValue.map({$0.intValue})
                         self.timeu = json["Posttime"].arrayValue.map({$0.int64Value})
-                        if !json["Account"].stringValue.isEmpty {
-                            self.a.title = json["Account"].stringValue
+                        if !json["Type"].stringValue.isEmpty {
+                            self.a.title = json["Type"].stringValue
                         }
-                        if json["c"].boolValue != false{
+                        if json["Port"].boolValue != false{
                             self.loadMoreEnable = true
                         } else {
                             self.tableview.tableFooterView = UIView()
@@ -171,12 +171,12 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
                         } else {
                             self.tableview.tableFooterView = UIView()
                         }
-                        self.TitleShow += json["Title"].arrayValue.map({$0.stringValue})
-                        self.Name += json["Name"].arrayValue.map({$0.stringValue})
-                        self.Number += json["Number"].arrayValue.map({$0.intValue})
+                        self.TitleShow += json["Head"].arrayValue.map({$0.stringValue})
+                        self.Name += json["Body"].arrayValue.map({$0.stringValue})
+                        self.Number += json["Image"].arrayValue.map({$0.intValue})
                         self.timeu = json["Posttime"].arrayValue.map({$0.int64Value})
-                        if !json["Account"].stringValue.isEmpty {
-                            self.a.title = json["Account"].stringValue
+                        if !json["Type"].stringValue.isEmpty {
+                            self.a.title = json["Type"].stringValue
                         }
 
                         self.tableview.reloadData()

@@ -131,11 +131,11 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
                         let json = JSON(value)
                         switch self.number {
                         case 10:
-                            self.head = json["Title"].stringValue
-                            self.Name = json["Name"].arrayValue.map({$0.stringValue})
-                            self.Text = json["Text"].arrayValue.map({$0.stringValue})
-                            self.Level = json["Level"].arrayValue.map({$0.stringValue})
-                            if json["c"].boolValue != false{
+                            self.head = json["Type"].stringValue
+                            self.Name = json["Body"].arrayValue.map({$0.stringValue})
+                            self.Text = json["Head"].arrayValue.map({$0.stringValue})
+                            self.Level = json["Image"].arrayValue.map({$0.stringValue})
+                            if json["Port"].boolValue != false{
                                 self.loadMoreEnable = true
                             } else {
                                 self.tablev.tableFooterView = UIView()
@@ -145,14 +145,14 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
                             self.refreshControl.endRefreshing()
                             self.h.text = "主题"
                         default :
-                            if json["c"].boolValue != false{
+                            if json["Port"].boolValue != false{
                                 self.loadMoreEnable = true
                             } else {
                                 self.tablev.tableFooterView = UIView()
                             }
-                            self.Name = json["Name"].arrayValue.map({$0.stringValue})
-                            self.Text = json["Text"].arrayValue.map({$0.stringValue})
-                            self.Level = json["Level"].arrayValue.map({$0.stringValue})
+                            self.Name = json["Body"].arrayValue.map({$0.stringValue})
+                            self.Text = json["Head"].arrayValue.map({$0.stringValue})
+                            self.Level = json["Image"].arrayValue.map({$0.stringValue})
 
                             self.tablev.reloadData()
                             self.refreshControl.endRefreshing()

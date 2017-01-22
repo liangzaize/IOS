@@ -104,10 +104,10 @@ class TalkViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let json = JSON(value)
                     switch count1 {
                     case 10:
-                        self.titlename = json["Title"].arrayValue.map({$0.stringValue})
-                        self.content = json["Summarize"].arrayValue.map({$0.stringValue})
+                        self.titlename = json["Head"].arrayValue.map({$0.stringValue})
+                        self.content = json["Body"].arrayValue.map({$0.stringValue})
                         self.picture = json["Image"].arrayValue.map({$0.stringValue})
-                        if json["c"].boolValue != false{
+                        if json["Port"].boolValue != false{
                             self.loadMoreEnable = true
                         } else {
                             self.uitableview.tableFooterView = UIView()
@@ -115,13 +115,13 @@ class TalkViewController: UIViewController, UITableViewDelegate, UITableViewData
                         self.uitableview.reloadData()
                         self.refreshControl.endRefreshing()
                     default :
-                        if json["c"].boolValue != false{
+                        if json["Port"].boolValue != false{
                             self.loadMoreEnable = true
                         } else {
                             self.uitableview.tableFooterView = UIView()
                         }
-                        self.titlename += json["Title"].arrayValue.map({$0.stringValue})
-                        self.content += json["Summarize"].arrayValue.map({$0.stringValue})
+                        self.titlename += json["Head"].arrayValue.map({$0.stringValue})
+                        self.content += json["Body"].arrayValue.map({$0.stringValue})
                         self.picture += json["Image"].arrayValue.map({$0.stringValue})
                         self.uitableview.reloadData()
                         self.refreshControl.endRefreshing()

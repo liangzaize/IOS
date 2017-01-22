@@ -103,12 +103,12 @@ class Zhu: UIViewController, UITabBarDelegate, UITextFieldDelegate{
                         self.money = 0
                         self.photo = "null"
                         self.dismiss(animated: true, completion: nil)
-                    } else if json["bingo"].boolValue == true {
-                        self.level = json["level"].stringValue
-                        self.money = json["money"].intValue
-                        self.photo = json["photo"].stringValue
+                    } else if json["Port1"].boolValue == true {
+                        self.photo = json["Type"].stringValue
+                        self.level = json["Fa"].stringValue
+                        self.money = json["Count"].intValue
                         self.dismiss(animated: true, completion: nil)
-                    } else if json["bingo"].boolValue == false{
+                    } else if json["Port"].boolValue == false{
                         self.hint.text = "用户名/密码错误"
                     } else {
                         let alertController = UIAlertController(title: "注册失败",

@@ -63,8 +63,8 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
                 switch response.result {
                 case .success(let value):
                     let json = JSON(value)
-                    self.arrayNames = json["Port"].arrayValue.map({$0.stringValue})
-                    self.arrayNames_1 = json["Type"].arrayValue.map({$0.stringValue})
+                    self.arrayNames = json["Body"].arrayValue.map({$0.stringValue})
+                    self.arrayNames_1 = json["Head"].arrayValue.map({$0.stringValue})
                     self.performSegue(withIdentifier: "into", sender: nil)
                     tableView.deselectRow(at: indexPath, animated: true)
                 case .failure(let error):
