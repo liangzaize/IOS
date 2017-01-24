@@ -108,11 +108,9 @@ class Zhu: UIViewController, UITabBarDelegate, UITextFieldDelegate{
                         self.level = json["Fa"].stringValue
                         self.money = json["Count"].intValue
                         self.dismiss(animated: true, completion: nil)
-                    } else if json["Port"].boolValue == false{
-                        self.hint.text = "用户名/密码错误"
                     } else {
-                        let alertController = UIAlertController(title: "注册失败",
-                                                                message: "用户名已存在", preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "失败",
+                                                                message: json["Type"].stringValue, preferredStyle: .alert)
                         let cancelAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)
                         alertController.addAction(cancelAction)
                         self.present(alertController, animated: true, completion: nil)
