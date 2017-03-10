@@ -69,7 +69,7 @@ class Zhu: UIViewController, UITabBarDelegate, UITextFieldDelegate{
                 hint.text = "密码过弱，至少为6位字符"
             }
             else {
-                sendtheala("https://192.168.0.106:8443/sign")
+                sendtheala("https://" + url.URLNAME + ":8443/sign")
             }
             break
         case 2:
@@ -77,7 +77,7 @@ class Zhu: UIViewController, UITabBarDelegate, UITextFieldDelegate{
             || matcher.match(input: account.text!) == false {
                 hint.text = "用户名/密码错误"
             } else {
-                sendtheala("https://192.168.0.106:8443/login")
+                sendtheala("https://" + url.URLNAME + ":8443/login")
             }
             break
         case 3:

@@ -20,10 +20,12 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
         dismiss(animated: true, completion: nil)
     }
     
+    var photo: String? = nil
     var get: String!
     var get1: String!
     var number = 10
     var head = " "
+    var Id: Array<String> = [""]
     var loadMoreEnable = true
     var loadMoreView: UIView?
     var refreshControl = UIRefreshControl()
@@ -40,6 +42,7 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
         loading.loadGif(name: "加载中")
         self.view.addSubview(loading)
         connect(10)
+        
         refreshControl.addTarget(self, action: #selector(Cover.refreshData), for: UIControlEvents.valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "下拉刷新数据")
         tablev.addSubview(refreshControl)
@@ -70,7 +73,7 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
             lebel.isHidden = true
             cou.text = "\(indexPath.row)楼"
         }
-        let pitcuer = cell.viewWithTag(2) as! UIImageView
+        let picture = cell.viewWithTag(2) as! UIImageView
         let name = cell.viewWithTag(3) as! UILabel
         name.adjustsFontSizeToFitWidth = true
         let level = cell.viewWithTag(4) as! UILabel
@@ -80,14 +83,26 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
         textview.text = self.Text[indexPath.row]
         name.text = self.Name[indexPath.row]
         level.text = self.Level[indexPath.row]
+        if let imageURL = URL(string:"https://" + url.URLNAME + ":8443/pict/" + self.Id[indexPath.row] + ".jpg") {
+            DispatchQueue.global().async {
+                Alamofire.request(imageURL, method: .get).responseData { response in
+                    guard let data = response.result.value else {
+                        picture.image = UIImage(named: "error") //未加载到海报显示默认的“暂无图片”
+                        return
+                    }
+                    picture.image = UIImage(data: data)
+                }
+            }
+        }
+
         if indexPath.row % 2 == 1{
             cell.backgroundColor = UIColor(red: 244/255, green: 243/255, blue: 155/255, alpha: 0.5)
             midview?.backgroundColor = UIColor(red: 244/255, green: 243/255, blue: 155/255, alpha: 0.5)
             textview.backgroundColor = UIColor(red: 244/255, green: 243/255, blue: 155/255, alpha: 0.5)
         } else {
-            cell.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 229/255, alpha: 0.5)
-            midview?.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 229/255, alpha: 0.5)
-            textview.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 229/255, alpha: 0.5)
+            cell.backgroundColor = UIColor(red: 251/255, green: 251/255, blue: 220/255, alpha: 0.5)
+            midview?.backgroundColor = UIColor(red: 251/255, green: 251/255, blue: 220/255, alpha: 0.5)
+            textview.backgroundColor = UIColor(red: 251/255, green: 251/255, blue: 220/255, alpha: 0.5)
         }
         return cell
     }
@@ -122,8 +137,7 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     func connect(_ count: Int){
         let send: Dictionary = ["Type": get, "Fa": get1, "Count": number] as [String : Any]
-            //发送账号密码
-            Alamofire.request("https://192.168.0.106:8443/maintalk", method: .post, parameters: send, encoding: JSONEncoding.default)
+            Alamofire.request("https://" + url.URLNAME + ":8443/maintalk", method: .post, parameters: send, encoding: JSONEncoding.default)
                 .validate()
                 .responseJSON { response in
                     switch response.result {
@@ -135,6 +149,7 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
                             self.Name = json["Body"].arrayValue.map({$0.stringValue})
                             self.Text = json["Head"].arrayValue.map({$0.stringValue})
                             self.Level = json["Image"].arrayValue.map({$0.stringValue})
+                            self.Id = json["Posttime"].arrayValue.map({$0.stringValue})
                             if json["Port"].boolValue != false{
                                 self.loadMoreEnable = true
                             } else {
@@ -153,7 +168,7 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
                             self.Name = json["Body"].arrayValue.map({$0.stringValue})
                             self.Text = json["Head"].arrayValue.map({$0.stringValue})
                             self.Level = json["Image"].arrayValue.map({$0.stringValue})
-
+                            self.Id = json["Posttime"].arrayValue.map({$0.stringValue})
                             self.tablev.reloadData()
                             self.refreshControl.endRefreshing()
                         }

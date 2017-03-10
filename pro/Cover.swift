@@ -143,7 +143,7 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
         let timeInterval:TimeInterval = now.timeIntervalSince1970
         timeStamp = Int64(timeInterval)
         //给服务器发送请求，把信息发送回来
-        Alamofire.request("https://192.168.0.106:8443/talk", method: .post, parameters: send, encoding: JSONEncoding.default)
+        Alamofire.request("https://" + url.URLNAME + ":8443/talk", method: .post, parameters: send, encoding: JSONEncoding.default)
             .validate()
             .responseJSON { response in
                 switch response.result {

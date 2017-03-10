@@ -75,7 +75,8 @@ class TalkViewController: UIViewController, UITableViewDelegate, UITableViewData
         let pict = cell.viewWithTag(3) as! UIImageView
         lebel.text = self.titlename[indexPath.row]
         lebel1.text = self.content[indexPath.row]
-        if let imageURL = URL(string:"https://192.168.0.106:8443/news" + self.picture[indexPath.row]) {
+        if let imageURL = URL(string:"https://" + url.URLNAME + ":8443/news" + self.picture[indexPath.row]) {
+            print("https://" + url.URLNAME + ":8443/news" + self.picture[indexPath.row])
             DispatchQueue.global().async {
                 Alamofire.request(imageURL, method: .get).responseData { response in
                     guard let data = response.result.value else {
@@ -96,7 +97,7 @@ class TalkViewController: UIViewController, UITableViewDelegate, UITableViewData
     let send: Dictionary = ["Type": "hukangze", "Count": count1] as [String : Any]
         loadMoreEnable = false
         //给服务器发送请求，把信息发送回来
-        Alamofire.request("https://192.168.0.106:8443/news", method: .post, parameters: send, encoding: JSONEncoding.default)
+        Alamofire.request("https://" + url.URLNAME + ":8443/news", method: .post, parameters: send, encoding: JSONEncoding.default)
             .validate()
             .responseJSON { response in
                 switch response.result {

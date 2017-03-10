@@ -79,7 +79,7 @@ class Send: UIViewController, UITextFieldDelegate, UITextViewDelegate{
         self.present(alertController, animated: true, completion: nil)
         
         //发送账号密码
-        Alamofire.request("https://192.168.0.106:8443/post", method: .post, parameters: send, encoding: JSONEncoding.default)
+        Alamofire.request("https://" + url.URLNAME + ":8443/post", method: .post, parameters: send, encoding: JSONEncoding.default)
             .validate()
             .responseJSON { response in
                 switch response.result {

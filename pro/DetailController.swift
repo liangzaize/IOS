@@ -57,7 +57,7 @@ class DetailController: UIViewController, UITableViewDelegate, UITableViewDataSo
         let send: Dictionary = ["Type": get!, "Fa": Save] as [String : Any]
         
         //发送型号+厂商，就可以定位具体的产品
-        Alamofire.request("https://192.168.0.106:8443/hardware", method: .post, parameters: send, encoding: JSONEncoding.default)
+        Alamofire.request("https://" + url.URLNAME + ":8443/hardware", method: .post, parameters: send, encoding: JSONEncoding.default)
             .validate()
             .responseJSON { response in
                 switch response.result {

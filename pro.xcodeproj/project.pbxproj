@@ -25,6 +25,7 @@
 		F37836171DE335DD00D451B5 /* NewsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37836161DE335DD00D451B5 /* NewsDetail.swift */; };
 		F37836191DE3445B00D451B5 /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37836181DE3445B00D451B5 /* Cover.swift */; };
 		F378361B1DE346A000D451B5 /* SetPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = F378361A1DE346A000D451B5 /* SetPerson.swift */; };
+		F3805B8F1E4D849F003EF095 /* url.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3805B8E1E4D849F003EF095 /* url.swift */; };
 		F3BF6BD21DF2D5600003A569 /* 登录界面.gif in Resources */ = {isa = PBXBuildFile; fileRef = F3BF6BD11DF2D5600003A569 /* 登录界面.gif */; };
 		F3C7D1221DC243F0004C84E7 /* DetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7D1211DC243F0004C84E7 /* DetailController.swift */; };
 		F3D7A2BE1DC3B8B800A99EAE /* WhatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7A2BD1DC3B8B800A99EAE /* WhatViewController.swift */; };
@@ -79,6 +80,7 @@
 		F37836161DE335DD00D451B5 /* NewsDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetail.swift; sourceTree = "<group>"; };
 		F37836181DE3445B00D451B5 /* Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
 		F378361A1DE346A000D451B5 /* SetPerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPerson.swift; sourceTree = "<group>"; };
+		F3805B8E1E4D849F003EF095 /* url.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = url.swift; sourceTree = "<group>"; };
 		F3BF6BD11DF2D5600003A569 /* 登录界面.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "登录界面.gif"; path = "../../../Pictures/显卡佬项目图片素材/登录界面.gif"; sourceTree = "<group>"; };
 		F3C7D1211DC243F0004C84E7 /* DetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailController.swift; sourceTree = "<group>"; };
 		F3D7A2BD1DC3B8B800A99EAE /* WhatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatViewController.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				F364677E1DC1C01000BD71E3 /* Assets.xcassets */,
 				F36467801DC1C01000BD71E3 /* LaunchScreen.storyboard */,
 				F36467831DC1C01000BD71E3 /* Info.plist */,
+				F3805B8E1E4D849F003EF095 /* url.swift */,
 			);
 			path = pro;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				F3C7D1221DC243F0004C84E7 /* DetailController.swift in Sources */,
 				F37836171DE335DD00D451B5 /* NewsDetail.swift in Sources */,
 				F3D7A2BE1DC3B8B800A99EAE /* WhatViewController.swift in Sources */,
+				F3805B8F1E4D849F003EF095 /* url.swift in Sources */,
 				F364677A1DC1C01000BD71E3 /* TalkViewController.swift in Sources */,
 				F31D67461E2F4D5900DCCC6C /* Zheng.swift in Sources */,
 				F37836191DE3445B00D451B5 /* Cover.swift in Sources */,

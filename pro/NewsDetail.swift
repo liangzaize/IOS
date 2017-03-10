@@ -21,7 +21,7 @@ class NewsDetail: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let parameters: Parameters = ["Type": get,"Fa": get1]
-        Alamofire.request("https://192.168.0.106:8443/newsdata", parameters: parameters).responseString {
+        Alamofire.request("https://" + url.URLNAME + ":8443/newsdata", parameters: parameters).responseString {
             response in
             self.news.loadHTMLString(response.result.value!, baseURL: nil)
         }
