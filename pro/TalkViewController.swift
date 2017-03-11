@@ -76,7 +76,6 @@ class TalkViewController: UIViewController, UITableViewDelegate, UITableViewData
         lebel.text = self.titlename[indexPath.row]
         lebel1.text = self.content[indexPath.row]
         if let imageURL = URL(string:"https://" + url.URLNAME + ":8443/news" + self.picture[indexPath.row]) {
-            print("https://" + url.URLNAME + ":8443/news" + self.picture[indexPath.row])
             DispatchQueue.global().async {
                 Alamofire.request(imageURL, method: .get).responseData { response in
                     guard let data = response.result.value else {

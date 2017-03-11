@@ -42,13 +42,14 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
         loading.loadGif(name: "加载中")
         self.view.addSubview(loading)
         connect(10)
-        
         refreshControl.addTarget(self, action: #selector(Cover.refreshData), for: UIControlEvents.valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "下拉刷新数据")
         tablev.addSubview(refreshControl)
         self.setupInfiniteScrollingView()
         tablev.tableFooterView = self.loadMoreView
         tablev.separatorStyle = .none
+        tablev.estimatedRowHeight = 40
+        tablev.rowHeight = UITableViewAutomaticDimension
     }
     
     override func didReceiveMemoryWarning() {
@@ -105,10 +106,6 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
             textview.backgroundColor = UIColor(red: 251/255, green: 251/255, blue: 220/255, alpha: 0.5)
         }
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return cellheight
     }
     
     func refreshData() {
