@@ -108,7 +108,7 @@ class Zhu: UIViewController, UITabBarDelegate, UITextFieldDelegate{
                         self.level = json["Fa"].stringValue
                         self.money = json["Count"].intValue
                         self.dismiss(animated: true, completion: nil)
-                    } else {
+                    } else if json["Port"].boolValue == false && json["Port1"].boolValue == false{
                         let alertController = UIAlertController(title: "失败",
                                                                 message: json["Type"].stringValue, preferredStyle: .alert)
                         let cancelAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)

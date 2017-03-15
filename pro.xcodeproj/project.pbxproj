@@ -30,6 +30,7 @@
 		F3C7D1221DC243F0004C84E7 /* DetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7D1211DC243F0004C84E7 /* DetailController.swift */; };
 		F3D7A2BE1DC3B8B800A99EAE /* WhatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D7A2BD1DC3B8B800A99EAE /* WhatViewController.swift */; };
 		F3DDD84B1E307A47001A5201 /* 加载中.gif in Resources */ = {isa = PBXBuildFile; fileRef = F3DDD84A1E307A47001A5201 /* 加载中.gif */; };
+		F3F6E1B41E783714008EF141 /* Reply.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F6E1B31E783714008EF141 /* Reply.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		F3C7D1211DC243F0004C84E7 /* DetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailController.swift; sourceTree = "<group>"; };
 		F3D7A2BD1DC3B8B800A99EAE /* WhatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatViewController.swift; sourceTree = "<group>"; };
 		F3DDD84A1E307A47001A5201 /* 加载中.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "加载中.gif"; path = "../../../Pictures/显卡佬项目图片素材/加载中.gif"; sourceTree = "<group>"; };
+		F3F6E1B31E783714008EF141 /* Reply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reply.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				F37836181DE3445B00D451B5 /* Cover.swift */,
 				F369FEE51E29F10000BE3821 /* Send.swift */,
 				F31D67451E2F4D5900DCCC6C /* Zheng.swift */,
+				F3F6E1B31E783714008EF141 /* Reply.swift */,
 			);
 			name = Tao;
 			sourceTree = "<group>";
@@ -536,6 +539,7 @@
 				F3D7A2BE1DC3B8B800A99EAE /* WhatViewController.swift in Sources */,
 				F3805B8F1E4D849F003EF095 /* url.swift in Sources */,
 				F364677A1DC1C01000BD71E3 /* TalkViewController.swift in Sources */,
+				F3F6E1B41E783714008EF141 /* Reply.swift in Sources */,
 				F31D67461E2F4D5900DCCC6C /* Zheng.swift in Sources */,
 				F37836191DE3445B00D451B5 /* Cover.swift in Sources */,
 				F339BDE71DE5C84D00289235 /* Zhu.swift in Sources */,

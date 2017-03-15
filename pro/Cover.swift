@@ -13,7 +13,9 @@ import SwiftyJSON
 
 class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
     @IBAction func tun(_ sender: Any) {
-        if a.title == "未登录"{
+        let cookieJar = HTTPCookieStorage.shared.cookies(
+            for: URL(string:"https://" + url.URLNAME + ":8443")!)
+        if cookieJar?.count == 0 {
             let alertController = UIAlertController(title: "请先登录",
                                                     message: nil, preferredStyle: .alert)
             //显示提示框

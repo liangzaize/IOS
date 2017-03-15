@@ -13,6 +13,7 @@ import Alamofire
 import SwiftyJSON
 
 class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
+    @IBOutlet weak var lookId: UILabel!
     @IBOutlet weak var h: UILabel!
     @IBOutlet weak var tablev: UITableView!
     @IBOutlet weak var viewheight: UIView!
@@ -33,10 +34,12 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
     var Name: Array<String> = [""]
     var Level: Array<String> = [""]
     var loading: UIImageView!
-    var cellheight: CGFloat = 0.0
+    var myButton: UIButton!
+    var fullScreenSize: CGSize!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fullScreenSize = UIScreen.main.bounds.size
         loading = UIImageView(frame: CGRect(x: 0, y: viewheight.frame.height, width: self.view.frame.width, height: self.view.frame.height - viewheight.frame.height))
         loading.contentMode = UIViewContentMode.scaleAspectFit
         loading.loadGif(name: "加载中")
@@ -50,6 +53,38 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
         tablev.separatorStyle = .none
         tablev.estimatedRowHeight = 40
         tablev.rowHeight = UITableViewAutomaticDimension
+        myButton = UIButton(
+            frame: CGRect(x: fullScreenSize.width * 0.9, y: fullScreenSize.height, width: 30, height: 30))
+        myButton.setImage(UIImage(named: "pencil"), for: UIControlState.normal)
+        // 按鈕是否可以使用
+        myButton.isEnabled = true
+        myButton.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+        self.view.addSubview(myButton)
+        h.adjustsFontSizeToFitWidth = true
+    }
+    
+    func tapped(){
+        let cookieJar = HTTPCookieStorage.shared.cookies(
+            for: URL(string:"https://" + url.URLNAME + ":8443")!)
+        if cookieJar?.count == 0 {
+            let alertController = UIAlertController(title: "请先登录",
+                                                    message: nil, preferredStyle: .alert)
+            //显示提示框
+            self.present(alertController, animated: true, completion: nil)
+            //两秒钟后自动消失
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                self.presentedViewController?.dismiss(animated: false, completion: nil)
+            }
+        } else {
+        self.performSegue(withIdentifier: "reply", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "reply"{
+            let dest: Reply = segue.destination as! Reply
+            dest.titl = self.head
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,16 +97,13 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "firstcell", for: indexPath)
-        let lebel = cell.viewWithTag(1) as! UILabel
         let midview = cell.viewWithTag(6)
         let cou = cell.viewWithTag(7) as! UILabel
         midview?.layer.borderColor = UIColor(red: 228/255, green: 228/255, blue: 223/255, alpha: 0.5).cgColor
         midview?.layer.borderWidth = 1
         if indexPath.row == 0 {
-            lebel.text = self.head
             cou.text = "楼主"
         } else {
-            lebel.isHidden = true
             cou.text = "\(indexPath.row)楼"
         }
         let picture = cell.viewWithTag(2) as! UIImageView
@@ -79,11 +111,12 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
         name.adjustsFontSizeToFitWidth = true
         let level = cell.viewWithTag(4) as! UILabel
         let textview = cell.viewWithTag(5) as! UITextView
+        let iid = cell.viewWithTag(8) as!UILabel
         textview.isScrollEnabled = false
-        cellheight = lebel.frame.height + (midview?.frame.height)! + textview.frame.height
         textview.text = self.Text[indexPath.row]
         name.text = self.Name[indexPath.row]
         level.text = self.Level[indexPath.row]
+        iid.text = self.Id[indexPath.row]
         if let imageURL = URL(string:"https://" + url.URLNAME + ":8443/pict/" + self.Id[indexPath.row] + ".jpg") {
             DispatchQueue.global().async {
                 Alamofire.request(imageURL, method: .get).responseData { response in
@@ -98,12 +131,8 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
         if indexPath.row % 2 == 1{
             cell.backgroundColor = UIColor(red: 244/255, green: 243/255, blue: 155/255, alpha: 0.5)
-            midview?.backgroundColor = UIColor(red: 244/255, green: 243/255, blue: 155/255, alpha: 0.5)
-            textview.backgroundColor = UIColor(red: 244/255, green: 243/255, blue: 155/255, alpha: 0.5)
         } else {
             cell.backgroundColor = UIColor(red: 251/255, green: 251/255, blue: 220/255, alpha: 0.5)
-            midview?.backgroundColor = UIColor(red: 251/255, green: 251/255, blue: 220/255, alpha: 0.5)
-            textview.backgroundColor = UIColor(red: 251/255, green: 251/255, blue: 220/255, alpha: 0.5)
         }
         return cell
     }
@@ -131,6 +160,14 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
         activityViewIndicator.startAnimating()
         self.loadMoreView!.addSubview(activityViewIndicator)
     }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y <= 0{
+            myButton.frame = CGRect(x: myButton.frame.origin.x,y: fullScreenSize.height * 0.93,width: myButton.frame.size.width,height: myButton.frame.size.height)
+        } else {
+            myButton.frame = CGRect(x: myButton.frame.origin.x,y: fullScreenSize.height,width: myButton.frame.size.width,height: myButton.frame.size.height)
+        }
+    }
     
     func connect(_ count: Int){
         let send: Dictionary = ["Type": get, "Fa": get1, "Count": number] as [String : Any]
@@ -155,7 +192,7 @@ class Zheng: UIViewController, UITableViewDelegate, UITableViewDataSource{
                             self.loading.isHidden = true
                             self.tablev.reloadData()
                             self.refreshControl.endRefreshing()
-                            self.h.text = "主题"
+                            self.h.text = self.head
                         default :
                             if json["Port"].boolValue != false{
                                 self.loadMoreEnable = true

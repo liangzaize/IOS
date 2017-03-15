@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 
 class SetPerson: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    
+    @IBOutlet weak var namebu: UIBarButtonItem!
     @IBOutlet weak var chance: UIButton!
     @IBOutlet weak var gold: UILabel!
     @IBOutlet weak var silver: UILabel!
@@ -20,6 +20,25 @@ class SetPerson: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet weak var tupian: UIImageView!
     @IBOutlet weak var touxiang: UILabel!
     @IBOutlet weak var level: UILabel!
+    @IBAction func turnAn(_ sender: Any) {
+        if namebu.title == "登录"{
+            self.performSegue(withIdentifier: "denglu", sender: self)
+        } else {
+            let cookieJar: Array = HTTPCookieStorage.shared.cookies(
+                for: URL(string:"https://" + url.URLNAME + ":8443")!)!
+            for i in cookieJar {
+                HTTPCookieStorage.shared.deleteCookie(i as HTTPCookie)
+            }
+            gold.text = "\(0)"
+            silver.text = "\(0)"
+            copper.text = "\(0)"
+            tupian.image = UIImage(named: "自定义头像")
+            touxiang.text = "请登录"
+            level.text = "未知生物"
+            namebu.title = "登录"
+            chance.isHidden = true
+        }
+    }
     @IBAction func chance_p(_ sender: Any) {
         let alertController = UIAlertController(title: nil, message: nil,
                                                 preferredStyle: .actionSheet)
@@ -93,6 +112,7 @@ class SetPerson: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.gold.text = "\(g)"
             self.silver.text = "\(y)"
             self.copper.text = "\(t)"
+            self.namebu.title = "退出"
             if data.photo != "null" {
                 if let data: NSData = NSData(base64Encoded: data.photo!, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)
                 {
@@ -107,6 +127,7 @@ class SetPerson: UIViewController, UIImagePickerControllerDelegate, UINavigation
     override func viewDidLoad() {
         super.viewDidLoad()
         chance.isHidden = true
+        namebu.title = "登录"
     }
     
     func imagePickerController(_ picker: UIImagePickerController,

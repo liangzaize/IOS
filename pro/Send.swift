@@ -12,6 +12,7 @@ import Alamofire
 import SwiftyJSON
 
 class Send: UIViewController, UITextFieldDelegate, UITextViewDelegate{
+    @IBOutlet weak var tou: UILabel!
     @IBAction func send(_ sender: Any) {
         titlewrite.resignFirstResponder()
         text.resignFirstResponder()
@@ -37,7 +38,6 @@ class Send: UIViewController, UITextFieldDelegate, UITextViewDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(Send.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         titlewrite.addTarget(self, action: #selector(Send.textwillchange), for: UIControlEvents.editingChanged)
         titlewrite.returnKeyType = UIReturnKeyType.done
-        text.layer.borderWidth = 0.4
         text.layer.borderColor = myColor.cgColor
         placeholderLabel = UILabel()
         placeholderLabel.text = "内容"
@@ -73,7 +73,7 @@ class Send: UIViewController, UITextFieldDelegate, UITextViewDelegate{
     func connect(){
         let send: Dictionary = ["Type": titlewrite.text!, "Fa": text.text!] as [String : Any]
         
-        let alertController = UIAlertController(title: "保存成功!",
+        let alertController = UIAlertController(title: "发送中......",
                                                 message: nil, preferredStyle: .alert)
         //显示提示框
         self.present(alertController, animated: true, completion: nil)
