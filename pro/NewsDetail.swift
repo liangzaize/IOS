@@ -25,7 +25,6 @@ class NewsDetail: UIViewController {
             response in
             self.news.loadHTMLString(response.result.value!, baseURL: nil)
         }
-        
     }
     
     override func didReceiveMemoryWarning() {

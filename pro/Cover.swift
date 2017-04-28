@@ -159,6 +159,8 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
                         self.timeu = json["Posttime"].arrayValue.map({$0.int64Value})
                         if !json["Type"].stringValue.isEmpty {
                             self.a.title = json["Type"].stringValue
+                        } else {
+                            self.a.title = "未登录"
                         }
                         if json["Port"].boolValue != false{
                             self.loadMoreEnable = true
@@ -179,8 +181,9 @@ class Cover: UIViewController, UITableViewDelegate, UITableViewDataSource{
                         self.timeu = json["Posttime"].arrayValue.map({$0.int64Value})
                         if !json["Type"].stringValue.isEmpty {
                             self.a.title = json["Type"].stringValue
+                        } else {
+                            self.a.title = "未登录"
                         }
-
                         self.tableview.reloadData()
                         self.refreshControl.endRefreshing()
                     }

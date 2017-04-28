@@ -37,6 +37,7 @@ class SetPerson: UIViewController, UIImagePickerControllerDelegate, UINavigation
             level.text = "未知生物"
             namebu.title = "登录"
             chance.isHidden = true
+            _ = Alamofire.request("https://" + url.URLNAME + ":8443/cancel")
         }
     }
     @IBAction func chance_p(_ sender: Any) {
